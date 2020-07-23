@@ -1,0 +1,124 @@
+<html style="background:#050505">
+
+<body>
+    <div id=placeholder>
+        <span id=era class=w2>AD</span>
+        <span id=era-year class=space></span>
+        <span id=year class=w4>2010</span>
+        <span id=year-month class=dot>.</span>
+        <span id=month class=w2>12</span>
+        <span id=month-day class=dot>.</span>
+        <span id=day class=w2>10</span>
+        <span id=date-time class=space></span>
+        <span id=hour class=w2>11</span>
+        <span id=hour-minute class=column>:</span>
+        <span id=minute class=w2>29</span>
+        <span id=minute-second class=column>:</span>
+        <span id=second class=w2>32</span>
+        <span id=second-msecond class=column>:</span>
+        <span id=msecond class=w2>55</span>
+    </div>
+    <div id=overlay></div>
+</body>
+
+<head>
+    <title>Whispering Space</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Caladea&display=swap" rel="stylesheet">
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100vw;
+            background:black;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7vw;
+            font-family: 'Caladea', serif;
+        }
+
+        .w4 {
+            width: 4ex;
+            display: inline-block;
+            text-align:left;
+        }
+
+        .w2 {
+            width: 2ex;
+            display: inline-block;
+            text-align:left;
+        }
+
+        .space {
+            display: inline-block;
+            width: 1ex;
+        }
+
+        #placeholder {
+            transform: scaleX(0.8);
+        }
+
+        #placeholder {
+            font: sans-serif;
+            color: transparent;
+            text-shadow: 0px 0px 6.5px #8994a0;
+            -webkit-background-clip: text;
+            -moz-background-clip: text;
+            background-clip: text;
+            background:black;
+            filter:contrast(2.3) brightness(1.5) saturate(0.55);
+            padding:0.5ex;
+        }
+
+        #minute-second {
+            margin-left:-12px;
+        }
+
+        #overlay {
+            position:fixed;
+            width:100%;
+            height:100%;
+            background:url(/tributes/steins;gate/bg.jpg) center/cover;
+            mix-blend-mode: screen;
+        }
+    </style>
+    <script>
+        var
+            dy = document.getElementById('year'),
+            dm = document.getElementById('month'),
+            dd = document.getElementById('day'),
+            th = document.getElementById('hour'),
+            tm = document.getElementById('minute'),
+            ts = document.getElementById('second'),
+            tms = document.getElementById('msecond');
+
+        function pan(x, n) {
+            while (x.toString().length < n) {
+                x = "0" + x;
+            }
+            return x;
+        }
+        function step(timestamp) {
+            var d = new Date();
+            dy.innerText = d.getFullYear();
+            dm.innerText = pan(d.getMonth()+1, 2);
+            dd.innerText = pan(d.getDate(), 2);
+            th.innerText = pan(d.getHours(), 2);
+            tm.innerText = pan(d.getMinutes(), 2);
+            ts.innerText = pan(d.getSeconds(), 2);
+            //tms.innerText = ("" + pan(Math.floor(d.getMilliseconds() / 1000 * 60), 2));
+            tms.innerText = ("" + pan(d.getMilliseconds() , 2)).substring(0,2);
+            window.requestAnimationFrame(step);
+        }
+
+        window.requestAnimationFrame(step);
+    </script>
+</head>
+
+</html>
